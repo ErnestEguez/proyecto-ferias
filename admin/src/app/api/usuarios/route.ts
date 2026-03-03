@@ -6,11 +6,13 @@ import { createServerSupabaseClient } from '@/lib/supabase-server'
 export const dynamic = 'force-dynamic'
 
 // Factory: crear cliente admin en runtime, no a nivel de módulo
+// Fallbacks evitan que Turbopack falle al evaluar el módulo en build time
 const getAdminClient = () => createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://placeholder.supabase.co',
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? 'placeholder-service-key',
     { auth: { autoRefreshToken: false, persistSession: false } }
 )
+
 
 // ── GET: listar todos los admins ─────────────────────────────
 export async function GET() {
