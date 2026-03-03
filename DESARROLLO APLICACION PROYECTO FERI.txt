@@ -1,0 +1,384 @@
+DESARROLLO APLICACION "PROYECTO FERIAS"
+
+Supabase:               Proyecto_Ferias
+Contrasena BD           yFIGFXeXJ2QikYZ3		Probar tambien   Passw0rdLaboratorio$
+URL:                    https://lfunhuygjlsfnjpttzcs.supabase.co
+API Publish:            sb_publishable_HcGUJxrbCTRUG_mscUsyeQ_Jbi_QfzZ
+Id del Proyecto:	lfunhuygjlsfnjpttzcs
+Anon Public:	   	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxmdW5odXlnamxzZm5qcHR0emNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzODMzNTMsImV4cCI6MjA4Nzk1OTM1M30.yLc4IjlDMFD_WHoqR7gwSKnKJ19eLtejycgp0zUruYE
+
+
+PROMPT INICIAL:
+Quiero que actúes como mi agente de desarrollo principal en Google Antigravity para crear una aplicación llamada “Proyecto Ferias” (nombre de la carpeta del proyecto: C:\Billenniumweb2026\Proyecto Ferias).
+Tu objetivo es diseñar y construir, por etapas, un MVP de:
+
+App móvil instalable (Android/iOS) para visitantes y expositores.
+
+Panel web de administración para Administrador de Feria y SuperAdministrador.
+
+0. Reglas generales de trabajo
+Sigue estas reglas SIEMPRE:
+
+Modo de trabajo
+
+Usa modo de trabajo tipo “Planning” o equivalente: primero genera un plan detallado por etapas/tareas, espérame, y solo ejecuta cuando yo apruebe.
+
+Antes de escribir o modificar código, explícame:
+
+Qué archivos vas a crear o modificar.
+
+Qué tecnologías, frameworks y dependencias piensas usar.
+
+Rol y coordinación
+
+Yo soy el líder del proyecto.
+
+No cambies nada importante (estructura, stack, nombres de tablas, flujos) sin consultarme.
+
+Hazme repreguntas cuando algo no sea 100% claro.
+
+Propón mejoras y buenas prácticas, pero siempre pídele aprobación antes de aplicarlas.
+
+Base de datos / Supabase
+
+La base de datos debe estar en Supabase.
+
+Antes de asumir nada, pregúntame explícitamente:
+
+“¿Quieres que yo genere las migraciones / scripts SQL y tú las ejecutes en un proyecto Supabase que ya tengas creado?”
+
+“¿O prefieres que te indique paso a paso cómo crear el proyecto en Supabase y su configuración inicial?”
+
+NO asumas que puedes crear el proyecto en Supabase automáticamente; guíame o genera SQL/migraciones para que yo las aplique.
+
+Estilo de entregas
+
+Trabaja por etapas:
+
+Boceto general y arquitectura.
+
+Autenticación y modelos de usuario/perfiles.
+
+Módulos principales (visitante, expositor, admin feria, superadmin).
+
+Integraciones específicas (QR, mapas, reportes, chats, pagos simples).
+
+Al inicio de cada etapa:
+
+Resume objetivos.
+
+Lista las tareas concretas.
+
+Pídeme confirmación.
+
+Al final de cada etapa:
+
+Muéstrame cambios de archivos.
+
+Explica cómo probarlo paso a paso.
+
+Pide mi feedback.
+
+1. Objetivo de la solución (MVP)
+Implementar una plataforma para ferias compuesta por:
+
+App móvil instalable para:
+
+Visitantes
+
+Expositores
+
+Panel web de administración para:
+
+Administrador de la Feria
+
+SuperAdministrador (dueño del software / multiempresa)
+
+Objetivo principal del MVP:
+
+Gestionar una feria de forma profesional.
+
+Mejorar experiencia del visitante.
+
+Facilitar captación de leads para expositores.
+
+Entregar estadísticas básicas a la organización.
+
+La primera versión debe:
+
+Tener un bosquejo completo de pantallas, navegación y módulos.
+
+Incluir autenticación de usuarios y definición de roles/perfiles.
+
+Dejar lista la base para luego yo enviarte imágenes de inicio y continuar con el desarrollo detallado de cada módulo.
+
+2. Perfiles de usuario y funcionalidades (Versión 1)
+2.1 Visitante
+Funciones mínimas:
+
+Registro con datos básicos y correo, con verificación por correo.
+
+Obtención de credencial digital con código QR.
+
+Ver listado de expositores, buscarlos por:
+
+Nombre
+
+Rubro
+Y acceder a la ficha de cada uno.
+
+Visualizar mapa del recinto con ubicación de stands.
+
+Marcar expositores favoritos (agenda simple).
+
+Recibir notificaciones generales de la feria.
+
+2.2 Expositor
+Funciones mínimas:
+
+Escanear el QR de los visitantes (desde la app o módulo web).
+
+Registrar leads con datos de contacto básicos (según consentimiento del visitante).
+
+Clasificar cada lead (frío / tibio / caliente).
+
+Exportar sus leads a Excel/CSV.
+
+2.3 Administrador de la Feria
+Funciones mínimas:
+
+Configurar la feria (nombre, fechas, recinto).
+
+Crear y administrar expositores (datos, logos, rubros, stand asignado).
+
+Cargar el plano del recinto como imagen y definir posición de cada stand en el mapa.
+
+Consultar y exportar el listado de visitantes registrados.
+
+Consultar reportes básicos (visitas/leads por expositor).
+
+Enviar notificaciones generales a todos los visitantes.
+
+2.4 SuperAdministrador (dueño del software)
+Funciones mínimas:
+
+Crear Empresas (cada empresa puede gestionar sus ferias).
+
+Definir accesos/planes según el plan contratado.
+
+Dar de baja/activar una Empresa (estado).
+
+Crear el usuario Administrador principal de cada Empresa.
+
+3. Funcionalidades clave del MVP
+Quiero que el diseño de arquitectura y los modelos de datos contemplen al menos:
+
+Registro y credencial con QR
+
+Registro rápido mediante formulario en la app.
+
+Confirmación por correo electrónico.
+
+Generación de credencial digital con QR para que el visitante la muestre.
+
+Mapa del recinto
+
+Carga de plano general como imagen.
+
+Marcadores de stands sobre el plano, con nombre de cada expositor.
+
+Al tocar un stand, mostrar ficha del expositor.
+
+Uso de GPS del móvil para orientar al visitante (ubicación aproximada, sin infraestructura especial).
+
+Catálogo de expositores
+
+Listado completo con búsqueda por nombre y rubro.
+
+Ficha con logo, descripción, rubros, productos principales, stand en el mapa.
+
+Captura de leads para expositores
+
+Escaneo del QR del visitante.
+
+Alta automática del lead con info básica que el visitante permita.
+
+Clasificación del lead (frío/tibio/caliente) y notas.
+
+Exportación a Excel/CSV.
+
+Reportes básicos para la organización
+
+Total de visitantes registrados.
+
+Leads generados por cada expositor.
+
+Exportación de información para análisis posterior.
+
+Notificaciones
+
+Envío de mensajes generales a todos los visitantes (bienvenida, cambios de horario, avisos importantes).
+
+Cumplimiento legal mínimo (LOPDP – Ecuador)
+
+Pantalla de aceptación de términos y política de privacidad.
+
+Consentimiento explícito para uso de datos y cesión de datos a expositores.
+
+Diseño del modelo de datos pensando en registrar ese consentimiento.
+
+Chats privados
+
+Chat privado entre visitantes y Administración General.
+
+Chat privado entre expositores y la Administración General.
+
+No necesito algo ultra complejo tipo WhatsApp en el MVP, pero sí:
+
+Capacidad de iniciar conversación.
+
+Ver historial básico.
+
+Marca de leído/no leído puede ser opcional al inicio, pero si es sencillo, proponerlo.
+
+Charlas, cursos, congresos, talleres (eventos)
+
+Manejo y control de eventos con inscripción de visitantes.
+
+Soportar eventos:
+
+Con pago
+
+Sin pago
+
+Atributos mínimos por evento:
+
+Precio
+
+Estado de pago por visitante: Pagado / Pendiente
+
+Número de participantes
+
+Reportes y consultas por evento (inscritos, asistentes, etc.).
+
+Para pagos, en el MVP puedes:
+
+Simular estado de pago (sin integrar pasarela real) o
+
+Proponer una integración simple y preguntarme antes.
+
+4. Beneficios a considerar en el diseño
+Ten en cuenta estos objetivos para guiar decisiones de arquitectura y UX:
+
+Imagen moderna y profesional (app propia, credenciales QR, mapa interactivo).
+
+Mayor control de datos de visitantes y rendimiento de expositores.
+
+Facilitar captación de leads y seguimiento comercial post feria.
+
+Base tecnológica preparada para:
+
+Multi-ferias.
+
+Multi-empresa.
+
+Reportes avanzados.
+
+Mapa indoor más sofisticado en el futuro.
+
+5. Primera etapa que quiero que ejecutes
+Primera versión / Etapa 1 (lo que quiero ahora):
+
+Diseñar el bosquejo completo (alto nivel) de:
+
+Arquitectura de la solución (front, back, Supabase, módulos).
+
+Modelos de datos en Supabase (tablas principales, relaciones, campos clave).
+
+Sistema de autenticación y roles:
+
+Visitante
+
+Expositor
+
+Admin Feria
+
+SuperAdministrador
+
+Implementar lo mínimo funcional de autenticación de usuarios:
+
+Registro / login básico.
+
+Asociar usuario a un rol/perfil.
+
+Proteger rutas/páginas según rol.
+
+Definir claramente:
+
+Estructura de carpetas del proyecto Proyecto Ferias.
+
+Nombres de archivos principales (ejemplo: app, admin-panel, etc.).
+
+Preparar los puntos donde luego cargaré:
+
+Imágenes de pantalla inicial / splash.
+
+Logos de feria y empresas.
+
+Antes de escribir código:
+
+Muéstrame el plan de esta Etapa 1 con lista de tareas.
+
+Pregúntame:
+
+El stack tecnológico sugerido (por ejemplo, React Native / Flutter / Expo / Next.js, etc.) y proponme uno.
+
+Si ya tengo un proyecto Supabase creado o si necesito que me guíes para crearlo.
+
+Cuando la Etapa 1 esté lista, explícame:
+
+Cómo correr el proyecto en local.
+
+Cómo probar el flujo de registro/login y asignación de roles.
+
+6. Cosas que quiero que me preguntes (re-preguntas obligatorias)
+Antes de seguir avanzando, hazme al menos estas preguntas:
+
+¿En qué stack prefieres que se construya la app móvil (por ejemplo React Native/Expo) y el panel web (por ejemplo Next.js/React)?
+
+¿Ya tengo un proyecto en Supabase creado? SI  
+
+Si sí: pregúntame por el nombre y la URL del proyecto, y asume que yo ejecutaré los scripts SQL que tú generes.
+URL:                    https://lfunhuygjlsfnjpttzcs.supabase.co
+
+¿Tienes alguna preferencia de idioma de la interfaz (solo español en el MVP o multi-idioma desde el inicio)?
+Tiene que permitir elegir el idioma
+
+¿Qué nivel de detalle quieres en el modelo de datos para leads y eventos en esta primera versión? (mínimo viable vs. más completo).
+
+7. Recordatorio final de reglas:
+
+No avances a una nueva etapa sin mi aprobación de la anterior.
+
+No borres ni rompas funcionalidad ya validada sin avisarme.
+
+Documenta brevemente en cada etapa:
+
+Cambios de esquema en Supabase.
+
+Rutas principales y pantallas nuevas.
+
+Si detectas incoherencias o algo que pueda ser problemático a futuro, avísame y propón alternativas, pero no cambies nada sin consultarlo.
+
+Con toda esta información, primero genera:
+
+Un plan de implementación por etapas,
+
+La propuesta de stack tecnológico,
+
+Las preguntas de aclaración adicionales que consideres necesarias.
+
+Espera mi respuesta antes de escribir cualquier código.
+
+
+

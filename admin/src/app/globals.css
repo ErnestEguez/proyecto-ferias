@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f172a;
+  /* Deep Blue/Gray background */
+  --foreground: #f8fafc;
+  --header-bg: #ffffff;
+  /* White header as requested */
+  --primary: #2563eb;
+  /* Main Blue */
+  --primary-hover: #1d4ed8;
+  --secondary: #475569;
+  /* Slate for text */
+  --accent: #3b82f6;
+  /* Indigo for active links */
+  --border: #e2e8f0;
+}
+
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-header: #ffffff;
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+@layer components {
+
+  /* Landing Header Styling */
+  .landing-header {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .nav-item {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .nav-item:hover {
+    color: var(--primary);
+  }
+
+  .nav-item.active {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* SaaS Primary Button - Avoiding @apply conflicts */
+  .btn-saas-primary {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-saas-primary:hover {
+    background-color: var(--primary-hover);
+  }
+
+  .btn-saas-primary:active {
+    scale: 0.95;
+  }
+
+  .btn-saas-ghost {
+    color: #334155;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0 1.25rem;
+    transition: color 0.2s;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+
+  .btn-saas-ghost:hover {
+    color: var(--primary);
+  }
+
+  /* Auth Card refined for SaaS */
+  .auth-saas-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    padding: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .auth-saas-card {
+      padding: 3rem;
+    }
+  }
+
+  .input-saas {
+    width: 100%;
+    background-color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    color: white;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .input-saas:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  .label-saas {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    display: block;
+    margin-left: 0.25rem;
+  }
+
+  /* Hero Text */
+  .hero-gradient-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #ffffff, #c7d2fe, #60a5fa);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Fix: opciones de <select> con fondo oscuro y texto blanco */
+select {
+  color-scheme: dark;
+}
+
+select option {
+  background-color: #0f0f1a;
+  color: #f8fafc;
+}
