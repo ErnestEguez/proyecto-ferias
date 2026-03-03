@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 export default function ReportesPage() {
     return (
         <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-10 text-center">
@@ -6,3 +8,4 @@ export default function ReportesPage() {
         </div>
     )
 }
+
