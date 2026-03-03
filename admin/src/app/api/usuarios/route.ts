@@ -2,8 +2,11 @@ import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase-server'
 
-// Cliente con service_role para operaciones de admin en auth.users
-const supabaseAdmin = createClient(
+// Forzar modo dinámico — evita evaluación en build time (sin env vars)
+export const dynamic = 'force-dynamic'
+
+// Factory: crear cliente admin en runtime, no a nivel de módulo
+const getAdminClient = () => createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
     { auth: { autoRefreshToken: false, persistSession: false } }
@@ -21,7 +24,6 @@ export async function GET() {
         if (perfil?.rol !== 'superadmin')
             return NextResponse.json({ error: 'Solo superadmin' }, { status: 403 })
 
-        // Traer perfiles con empresa (rol admin o superadmin)
         const { data, error } = await supabase
             .from('perfiles')
             .select('*, empresas(id, nombre)')
@@ -30,8 +32,8 @@ export async function GET() {
 
         if (error) throw error
         return NextResponse.json({ data })
-    } catch (e: any) {
-        return NextResponse.json({ error: e.message }, { status: 500 })
+    } catch (e: unknown) {
+        return NextResponse.json({ error: (e as Error).message }, { status: 500 })
     }
 }
 
@@ -53,18 +55,16 @@ export async function POST(req: Request) {
         if (!email || !password || !nombre)
             return NextResponse.json({ error: 'nombre, email y password son obligatorios.' }, { status: 400 })
 
-        // 1. Crear usuario en auth.users
+        const supabaseAdmin = getAdminClient()
         const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
             email,
             password,
-            email_confirm: true, // confirmar email automáticamente
+            email_confirm: true,
             user_metadata: { nombre, apellidos },
         })
 
         if (authError) throw authError
 
-        // 2. El trigger crea el perfil automáticamente.
-        //    Actualizamos su rol y empresa_id.
         const { error: profileError } = await supabaseAdmin
             .from('perfiles')
             .update({ nombre, apellidos, rol, empresa_id: empresa_id || null })
@@ -73,8 +73,8 @@ export async function POST(req: Request) {
         if (profileError) throw profileError
 
         return NextResponse.json({ data: authData.user }, { status: 201 })
-    } catch (e: any) {
-        return NextResponse.json({ error: e.message }, { status: 500 })
+    } catch (e: unknown) {
+        return NextResponse.json({ error: (e as Error).message }, { status: 500 })
     }
 }
 
@@ -93,15 +93,15 @@ export async function PATCH(req: Request) {
         const { id, nombre, apellidos, empresa_id, rol } = await req.json()
         if (!id) return NextResponse.json({ error: 'id requerido' }, { status: 400 })
 
-        const { error } = await supabaseAdmin
+        const { error } = await getAdminClient()
             .from('perfiles')
             .update({ nombre, apellidos, empresa_id: empresa_id || null, rol })
             .eq('id', id)
 
         if (error) throw error
         return NextResponse.json({ ok: true })
-    } catch (e: any) {
-        return NextResponse.json({ error: e.message }, { status: 500 })
+    } catch (e: unknown) {
+        return NextResponse.json({ error: (e as Error).message }, { status: 500 })
     }
 }
 
@@ -121,10 +121,10 @@ export async function DELETE(req: Request) {
         if (!id) return NextResponse.json({ error: 'id requerido' }, { status: 400 })
         if (id === user.id) return NextResponse.json({ error: 'No puedes eliminarte a ti mismo.' }, { status: 400 })
 
-        const { error } = await supabaseAdmin.auth.admin.deleteUser(id)
+        const { error } = await getAdminClient().auth.admin.deleteUser(id)
         if (error) throw error
         return NextResponse.json({ ok: true })
-    } catch (e: any) {
-        return NextResponse.json({ error: e.message }, { status: 500 })
+    } catch (e: unknown) {
+        return NextResponse.json({ error: (e as Error).message }, { status: 500 })
     }
 }
