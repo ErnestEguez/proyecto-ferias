@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { User, LogOut, ShieldCheck, Briefcase, Globe, Loader2, AlertTriangle, RefreshCcw } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -160,8 +161,18 @@ export default function DashboardPage() {
                   : 'Estamos configurando tu perfil para que puedas gestionar tus eventos.'}
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="btn-saas-primary px-8 h-12">Gestionar Contenido</button>
-                <button className="px-8 h-12 rounded-xl border border-white/10 text-sm font-bold hover:bg-white/5 transition-all">Ver Perfil</button>
+                <Link
+                  href={profile?.rol === 'superadmin' ? '/superadmin' : '/admin'}
+                  className="btn-saas-primary px-8 h-12 flex items-center"
+                >
+                  Gestionar Contenido
+                </Link>
+                <Link
+                  href={profile?.rol === 'superadmin' ? '/superadmin' : '/admin'}
+                  className="px-8 h-12 rounded-xl border border-white/10 text-sm font-bold hover:bg-white/5 transition-all flex items-center"
+                >
+                  Ver Panel
+                </Link>
               </div>
             </div>
 
