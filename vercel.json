@@ -1,6 +1,0 @@
-{
-    "buildCommand": "cd admin && npm install && npm run build",
-    "outputDirectory": "admin/.next",
-    "framework": "nextjs",
-    "installCommand": "cd admin && npm install"
-}
