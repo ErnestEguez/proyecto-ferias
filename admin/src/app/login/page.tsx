@@ -1,9 +1,11 @@
 'use client';
 
+import { Suspense } from 'react';
 import LoginForm from '@/components/auth/LoginForm';
 import Navbar from '@/components/layout/Navbar';
 import { ShieldCheck, Lock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+
 
 export default function LoginPage() {
   return (
@@ -27,7 +29,10 @@ export default function LoginPage() {
               <p className="text-slate-400 text-sm font-medium">Ingresa tus credenciales para administrar tu feria.</p>
             </div>
 
-            <LoginForm />
+            <Suspense fallback={<div className="h-32 flex items-center justify-center text-slate-400 text-sm">Cargando...</div>}>
+              <LoginForm />
+            </Suspense>
+
 
             <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
               <p className="text-xs font-bold text-center text-slate-500 uppercase tracking-widest">¿Aún no tienes una cuenta?</p>

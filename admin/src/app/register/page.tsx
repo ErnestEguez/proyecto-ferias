@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import RegisterForm from '@/components/auth/RegisterForm';
 import Navbar from '@/components/layout/Navbar';
 import { UserPlus, ArrowLeft, ShieldCheck } from 'lucide-react';
@@ -27,7 +29,7 @@ export default function RegisterPage() {
               <p className="text-slate-400 text-sm font-medium">Digitaliza tu experiencia ferial hoy mismo.</p>
             </div>
 
-            <RegisterForm />
+            <Suspense fallback={<div className="h-32 flex items-center justify-center text-slate-400 text-sm">Cargando...</div>}><RegisterForm /></Suspense>
 
             <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
               <p className="text-xs font-bold text-center text-slate-500 uppercase tracking-widest">¿Ya tienes una cuenta registrada?</p>
